@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Mail, Menu, X, User, LogOut } from 'lucide-react';
+import { Menu, X, User, LogOut } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const Navbar: React.FC = () => {
@@ -23,13 +23,65 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="navbar">
-      <div className="nav-container">
-        <Link to="/" className="nav-logo">
-          <Mail size={32} />
-          <span>Sri Lanka Post</span>
-        </Link>
-        
-        <ul className="nav-menu">
+      {/* First Line - Header with Logo and Department Name */}
+      <div className="nav-header" style={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'space-between', 
+        padding: '1rem 2rem',
+        backgroundColor: '#fff',
+        borderBottom: '2px solid #ddd'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <img
+            src="/src/images/pngegg.png"
+            alt="Sri Lanka Post Icon"
+            className="nav-icon"
+            style={{ width: '80px', height: '80px' }}
+          />
+          <div>
+            <h1 style={{ 
+              fontSize: '1.5rem', 
+              color: '#c8102e', 
+              margin: 0,
+              fontWeight: 'bold'
+            }}>
+              ශ්‍රී ලංකා තැපැල් දෙපාර්තමේන්තුව
+            </h1>
+            <h2 style={{ 
+              fontSize: '1.2rem', 
+              color: '#c8102e', 
+              margin: 0,
+              fontWeight: 'normal'
+            }}>
+              இலங்கை அஞ்சல் திணைக்களம்
+            </h2>
+            <h2 style={{ 
+              fontSize: '1.3rem', 
+              color: '#c8102e', 
+              margin: 0,
+              fontWeight: 'bold'
+            }}>
+              Department of Posts - Sri Lanka
+            </h2>
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <Link to="#" style={{ color: '#c8102e', textDecoration: 'none', fontWeight: 'bold' }}>සිංහල</Link>
+          <Link to="#" style={{ color: '#c8102e', textDecoration: 'none', fontWeight: 'bold' }}>தமிழ்</Link>
+          <Link to="#" style={{ color: '#c8102e', textDecoration: 'none', fontWeight: 'bold' }}>English</Link>
+        </div>
+      </div>
+
+      {/* Second Line - Navigation Menu */}
+      <div className="nav-container" style={{ backgroundColor: '#c8102e' }}>
+        <ul className="nav-menu" style={{ 
+          display: 'flex', 
+          listStyle: 'none', 
+          margin: 0, 
+          padding: '0.5rem 2rem',
+          gap: '2rem'
+        }}>
           <li>
             <Link to="/" className={`nav-link ${isActive('/')}`}>
               Home
