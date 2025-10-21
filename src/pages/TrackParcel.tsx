@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Search, Package, MapPin, Clock, CheckCircle } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const TrackParcel: React.FC = () => {
+  const { t } = useLanguage();
   const [trackingNumber, setTrackingNumber] = useState('');
   const [trackingResult, setTrackingResult] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
