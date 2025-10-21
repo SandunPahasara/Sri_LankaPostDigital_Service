@@ -84,23 +84,23 @@ const TrackParcel: React.FC = () => {
     <div className="fade-in">
       <section className="section">
         <div className="container">
-          <h2>Track Your Parcel</h2>
+          <h2>{t('track.title')}</h2>
           <p className="section-subtitle">
-            Enter your tracking number below to get real-time updates on your delivery.
+            {t('track.subtitle')}
           </p>
           
           <div className="form-container">
             <form onSubmit={handleTrack}>
               <div className="form-group">
                 <label htmlFor="tracking" className="form-label">
-                  Tracking Number
+                  {t('track.trackingNumber')}
                 </label>
                 <div style={{ position: 'relative' }}>
                   <input
                     type="text"
                     id="tracking"
                     className="form-input"
-                    placeholder="Enter your tracking number (e.g., SLP123456789)"
+                    placeholder={t('track.enterTracking')}
                     value={trackingNumber}
                     onChange={(e) => setTrackingNumber(e.target.value)}
                     required
@@ -125,7 +125,7 @@ const TrackParcel: React.FC = () => {
                 disabled={isLoading}
                 style={{ width: '100%' }}
               >
-                {isLoading ? 'Tracking...' : 'Track Package'}
+                {isLoading ? `${t('common.loading')}` : t('track.track')}
               </button>
             </form>
           </div>
