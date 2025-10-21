@@ -1,13 +1,16 @@
 import React from 'react';
 import { Package, Smartphone, Clock, CreditCard, Bell, Truck } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Services: React.FC = () => {
+  const { t } = useLanguage();
+  
   return (
     <div className="fade-in">
       {/* Header */}
       <section className="section">
         <div className="container">
-          <h2>Our Digital Services</h2>
+          <h2>{t('services.title')}</h2>
           <p className="section-subtitle">
             Comprehensive postal solutions designed for the digital age, combining 
             traditional reliability with modern convenience.
@@ -23,11 +26,11 @@ const Services: React.FC = () => {
             <div className="service-card">
               <div className="service-header">
                 <Smartphone size={48} />
-                <h3>Digital Letter Scanning</h3>
+                <h3>{t('services.digitalLetter')}</h3>
               </div>
               <div className="service-content">
                 <div className="service-price">LKR 150<span style={{ fontSize: '1rem', fontWeight: 'normal' }}>/letter</span></div>
-                <p>Transform your old letters into secure digital copies accessible from anywhere.</p>
+                <p>{t('services.digitalLetter.desc')}</p>
                 
                 <ul className="service-features">
                   <li>✓ High-resolution scanning (600 DPI)</li>
