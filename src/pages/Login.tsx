@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, LogIn } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 
 const Login: React.FC = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -47,9 +49,9 @@ const Login: React.FC = () => {
               <div className="feature-icon" style={{ margin: '0 auto 1rem' }}>
                 <LogIn />
               </div>
-              <h2>Welcome Back</h2>
+              <h2>{t('login.title')}</h2>
               <p className="section-subtitle">
-                Sign in to your Sri Lanka Post account to access digital services.
+                Sign in to access your Sri Lanka Post account
               </p>
             </div>
 
@@ -70,7 +72,7 @@ const Login: React.FC = () => {
               <div className="form-group">
                 <label htmlFor="email" className="form-label">
                   <Mail size={16} style={{ marginRight: '0.5rem' }} />
-                  Email Address
+                  {t('login.email')}
                 </label>
                 <input
                   type="email"
@@ -87,7 +89,7 @@ const Login: React.FC = () => {
               <div className="form-group">
                 <label htmlFor="password" className="form-label">
                   <Lock size={16} style={{ marginRight: '0.5rem' }} />
-                  Password
+                  {t('login.password')}
                 </label>
                 <div style={{ position: 'relative' }}>
                   <input
