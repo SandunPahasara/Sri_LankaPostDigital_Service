@@ -1,12 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, User, LogOut } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const { isAuthenticated, user, logout } = useAuth();
+  const { language, setLanguage, t } = useLanguage();
   const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down
+        setIsVisible(false);
+      } else {
+        // Scrolling up
+        setIsVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -22,54 +45,136 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="navbar">
+    <nav className="navbar" style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
+      transition: 'transform 0.3s ease-in-out',
+      zIndex: 1000,
+      boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+    }}>
+      {/* Animated Gradient Styles */}
+      <style>{`
+        @keyframes gradientShift {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+        
+        .animated-gradient {
+          background: linear-gradient(270deg, #dc143c, #c8102e, #8b0000, #ff6347, #c8102e);
+          background-size: 400% 400%;
+          animation: gradientShift 8s ease infinite;
+        }
+      `}</style>
+      
       {/* First Line - Header with Logo and Department Name */}
-      <div className="nav-header" style={{ 
+      <div className="nav-header animated-gradient" style={{ 
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'space-between', 
         padding: '1rem 2rem',
-        backgroundColor: '#fff',
-        borderBottom: '2px solid #ddd'
+        borderBottom: '2px solid #8b0000',
+        position: 'relative',
+        overflow: 'hidden'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', position: 'relative', zIndex: 2 }}>
           <img
             src="/src/images/pngegg.png"
             alt="Sri Lanka Post Icon"
             className="nav-icon"
-            style={{ width: '80px', height: '80px' }}
+            style={{ width: '110px', height: '110px', filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))' }}
           />
           <div>
             <h1 style={{ 
               fontSize: '1.5rem', 
-              color: '#c8102e', 
+              color: '#ffffff', 
               margin: 0,
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
             }}>
-              ශ්‍රී ලංකා තැපැල් දෙපාර්තමේන්තුව
+              {language === 'si' ? 'ශ්‍රී ලංකා තැපැල් දෙපාර්තමේන්තුව' : 
+               language === 'ta' ? 'இலங்கை அஞ்சல் திணைக்களம்' : 
+               'Department of Posts - Sri Lanka'}
             </h1>
-            <h2 style={{ 
-              fontSize: '1.2rem', 
-              color: '#c8102e', 
-              margin: 0,
-              fontWeight: 'normal'
-            }}>
-              இலங்கை அஞ்சல் திணைக்களம்
-            </h2>
-            <h2 style={{ 
-              fontSize: '1.3rem', 
-              color: '#c8102e', 
-              margin: 0,
-              fontWeight: 'bold'
-            }}>
-              Department of Posts - Sri Lanka
-            </h2>
+            {language === 'en' && (
+              <>
+                <h2 style={{ 
+                  fontSize: '1.2rem', 
+                  color: '#ffeb3b', 
+                  margin: 0,
+                  fontWeight: 'normal',
+                  textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+                }}>
+                  ශ්‍රී ලංකා තැපැල් දෙපාර්තමේන්තුව
+                </h2>
+                <h2 style={{ 
+                  fontSize: '1.2rem', 
+                  color: '#ffeb3b', 
+                  margin: 0,
+                  fontWeight: 'normal',
+                  textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+                }}>
+                  இலங்கை அஞ்சல் திணைக்களம்
+                </h2>
+              </>
+            )}
           </div>
         </div>
-        <div style={{ display: 'flex', gap: '1rem' }}>
-          <Link to="#" style={{ color: '#c8102e', textDecoration: 'none', fontWeight: 'bold' }}>සිංහල</Link>
-          <Link to="#" style={{ color: '#c8102e', textDecoration: 'none', fontWeight: 'bold' }}>தமிழ்</Link>
-          <Link to="#" style={{ color: '#c8102e', textDecoration: 'none', fontWeight: 'bold' }}>English</Link>
+        <div style={{ display: 'flex', gap: '1rem', position: 'relative', zIndex: 2 }}>
+          <button 
+            onClick={() => setLanguage('si')} 
+            style={{ 
+              color: language === 'si' ? '#ffeb3b' : '#ffffff', 
+              textDecoration: 'none', 
+              fontWeight: 'bold', 
+              textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '1rem'
+            }}
+          >
+            සිංහල
+          </button>
+          <button 
+            onClick={() => setLanguage('ta')} 
+            style={{ 
+              color: language === 'ta' ? '#ffeb3b' : '#ffffff', 
+              textDecoration: 'none', 
+              fontWeight: 'bold', 
+              textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '1rem'
+            }}
+          >
+            தமிழ்
+          </button>
+          <button 
+            onClick={() => setLanguage('en')} 
+            style={{ 
+              color: language === 'en' ? '#ffeb3b' : '#ffffff', 
+              textDecoration: 'none', 
+              fontWeight: 'bold', 
+              textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '1rem'
+            }}
+          >
+            English
+          </button>
         </div>
       </div>
 
@@ -84,39 +189,39 @@ const Navbar: React.FC = () => {
         }}>
           <li>
             <Link to="/" className={`nav-link ${isActive('/')}`}>
-              Home
+              {t('nav.home')}
             </Link>
           </li>
           <li>
             <Link to="/services" className={`nav-link ${isActive('/services')}`}>
-              Services
+              {t('nav.services')}
             </Link>
           </li>
           <li>
             <Link to="/track" className={`nav-link ${isActive('/track')}`}>
-              Track Parcel
+              {t('nav.trackParcel')}
             </Link>
           </li>
           <li>
             <Link to="/about" className={`nav-link ${isActive('/about')}`}>
-              About Us
+              {t('nav.aboutUs')}
             </Link>
           </li>
           <li>
             <Link to="/contact" className={`nav-link ${isActive('/contact')}`}>
-              Contact
+              {t('nav.contactUs')}
             </Link>
           </li>
           {isAuthenticated ? (
             <>
               <li>
                 <Link to="/dashboard" className={`nav-link ${isActive('/dashboard')}`}>
-                  Dashboard
+                  {t('nav.dashboard')}
                 </Link>
               </li>
               <li>
                 <Link to="/pickup-request" className={`nav-link ${isActive('/pickup-request')}`}>
-                  Pickup Request
+                  {t('nav.pickupRequest')}
                 </Link>
               </li>
               <li style={{ position: 'relative' }}>
@@ -132,7 +237,7 @@ const Navbar: React.FC = () => {
                   style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
                 >
                   <LogOut size={16} />
-                  Sign Out
+                  {t('nav.signOut')}
                 </button>
               </li>
             </>
@@ -140,12 +245,12 @@ const Navbar: React.FC = () => {
             <>
               <li>
                 <Link to="/login" className={`nav-link ${isActive('/login')}`}>
-                  Sign In
+                  {t('nav.signIn')}
                 </Link>
               </li>
               <li>
                 <Link to="/register" className={`nav-link ${isActive('/register')}`}>
-                  Sign Up
+                  {t('nav.signUp')}
                 </Link>
               </li>
             </>
