@@ -96,9 +96,9 @@ const Register: React.FC = () => {
               <div className="feature-icon" style={{ margin: '0 auto 1rem' }}>
                 <UserPlus />
               </div>
-              <h2>Create Your Account</h2>
+              <h2>{t('register.title')}</h2>
               <p className="section-subtitle">
-                Join Sri Lanka Post digital services and enjoy modern postal solutions.
+                Join Sri Lanka Post digital services today
               </p>
             </div>
 
@@ -121,7 +121,7 @@ const Register: React.FC = () => {
                 <div className="form-group">
                   <label htmlFor="firstName" className="form-label">
                     <User size={16} style={{ marginRight: '0.5rem' }} />
-                    First Name *
+                    {t('register.firstName')} *
                   </label>
                   <input
                     type="text"
@@ -138,7 +138,7 @@ const Register: React.FC = () => {
                 <div className="form-group">
                   <label htmlFor="lastName" className="form-label">
                     <User size={16} style={{ marginRight: '0.5rem' }} />
-                    Last Name *
+                    {t('register.lastName')} *
                   </label>
                   <input
                     type="text"
