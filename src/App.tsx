@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { LanguageProvider } from './context/LanguageContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -16,9 +17,10 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <div className="App">
+    <LanguageProvider>
+      <AuthProvider>
+        <Router>
+          <div className="App">
           <Navbar />
           <main>
             <Routes>
@@ -45,6 +47,7 @@ function App() {
         </div>
       </Router>
     </AuthProvider>
+    </LanguageProvider>
   );
 }
 
