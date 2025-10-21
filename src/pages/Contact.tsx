@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Phone, Mail, MapPin, Clock, Send, MessageCircle } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Contact: React.FC = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -60,10 +62,9 @@ const Contact: React.FC = () => {
       {/* Header */}
       <section className="section">
         <div className="container">
-          <h2>Contact Us</h2>
+          <h2>{t('contact.title')}</h2>
           <p className="section-subtitle">
-            Get in touch with our customer service team. We're here to help with 
-            any questions about our services or your deliveries.
+            {t('contact.getInTouch')}
           </p>
         </div>
       </section>
