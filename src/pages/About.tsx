@@ -1,16 +1,18 @@
 import React from 'react';
 import { Calendar, Users, Award, Target } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const About: React.FC = () => {
+  const { t } = useLanguage();
+  
   return (
     <div className="fade-in">
       {/* Header */}
       <section className="section">
         <div className="container">
-          <h2>About Sri Lanka Post</h2>
+          <h2>{t('about.title')}</h2>
           <p className="section-subtitle">
-            Over 200 years of trusted service, now modernized for the digital age. 
-            Discover our journey from traditional mail to cutting-edge postal solutions.
+            {t('about.subtitle')} - {t('about.description')}
           </p>
         </div>
       </section>
