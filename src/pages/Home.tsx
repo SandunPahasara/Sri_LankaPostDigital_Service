@@ -1,20 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Package, Smartphone, Clock, Shield, Leaf, Zap } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Home: React.FC = () => {
+  const { t } = useLanguage();
+  
   return (
     <div className="fade-in">
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-container">
-          <h1>Sri Lanka Post Digital Services</h1>
+          <h1>{t('home.hero.title')}</h1>
           <p>
-            Modernizing postal services with cutting-edge technology while preserving 
-            the trust and reliability you've known for over 200 years.
+            {t('home.hero.subtitle')}
           </p>
           <Link to="/services" className="cta-button">
-            Explore Our Services
+            {t('home.hero.cta')}
           </Link>
         </div>
       </section>
@@ -22,7 +24,7 @@ const Home: React.FC = () => {
       {/* Features Section */}
       <section className="section">
         <div className="container">
-          <h2>Digital Services for Modern Life</h2>
+          <h2>{t('services.title')}</h2>
           <p className="section-subtitle">
             Experience the future of postal services with our innovative digital solutions 
             designed to make your life easier and more connected.
@@ -33,10 +35,9 @@ const Home: React.FC = () => {
               <div className="feature-icon">
                 <Package />
               </div>
-              <h3>Track & Trace</h3>
+              <h3>{t('services.trackTrace')}</h3>
               <p>
-                Real-time tracking for all your parcels and letters with instant 
-                notifications and detailed delivery updates.
+                {t('services.trackTrace.desc')}
               </p>
             </div>
             
@@ -44,10 +45,9 @@ const Home: React.FC = () => {
               <div className="feature-icon">
                 <Smartphone />
               </div>
-              <h3>Digital Letter Scanning</h3>
+              <h3>{t('services.digitalLetter')}</h3>
               <p>
-                Preserve your precious old letters digitally. We scan and deliver 
-                them securely to your email or mobile device.
+                {t('services.digitalLetter.desc')}
               </p>
             </div>
             
@@ -55,10 +55,9 @@ const Home: React.FC = () => {
               <div className="feature-icon">
                 <Clock />
               </div>
-              <h3>Smart Delivery Options</h3>
+              <h3>{t('services.smartDelivery')}</h3>
               <p>
-                Schedule deliveries at your convenience or redirect packages to 
-                your nearest post office branch.
+                {t('services.smartDelivery.desc')}
               </p>
             </div>
             
@@ -66,10 +65,9 @@ const Home: React.FC = () => {
               <div className="feature-icon">
                 <Shield />
               </div>
-              <h3>Secure Notifications</h3>
+              <h3>{t('services.secureNotifications')}</h3>
               <p>
-                Stay informed with SMS and email alerts about your deliveries, 
-                delays, and important updates.
+                {t('services.secureNotifications.desc')}
               </p>
             </div>
           </div>
